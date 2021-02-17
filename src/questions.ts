@@ -1,4 +1,4 @@
-export const myQuestions = [
+export const allQuestions = [
     {
       question: "Who invented JavaScript?",
       answers: {
