@@ -1,4 +1,13 @@
 export const allQuestions = [
+  {
+    question: "JSON full form?",
+    answers: {
+      a: "Javascript oriented notation",
+      b: "Javascript object notation",
+      c: "Javaserver object notation"
+    },
+    correctAnswer: "b"
+  },
     {
       question: "Who invented JavaScript?",
       answers: {

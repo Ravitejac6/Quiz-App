@@ -3,8 +3,35 @@ console.log("Project started");
 
 const quizArea = document.getElementById('quiz');
 const resultArea = document.getElementById('results')
-const submitButton = document.getElementById('submit')
+let submitButton;
 const startButton = document.getElementById('start-button')
+let allAnswers:String[]=[];
+let isSubmit:boolean = false;
+
+startButton.addEventListener('click',loadPage);
+
+
+
+function loadPage(){
+    removeStartButton();
+    timer();
+    buildQuiz();
+    createSubmitButton();
+}
+function removeStartButton(){
+    startButton.remove();
+}
+
+function createSubmitButton(){
+    let buttonElement = document.createElement('button');
+    let textElement = document.createTextNode("Submit");
+    buttonElement.appendChild(textElement);
+    buttonElement.setAttribute('class','btn btn-success');
+    buttonElement.setAttribute('id','submit');
+    quizArea.appendChild(buttonElement);
+    submitButton = document.getElementById('submit');
+    submitButton.addEventListener('click',showResults);
+}
 
 function buildQuiz(){
     const output = [];
@@ -15,6 +42,7 @@ function buildQuiz(){
                 `<input type="radio" name="question${questionNumber}" value="${option}">
                   ${option}: ${currentQuestion.answers[option]}`
               );
+              allAnswers.push(currentQuestion.correctAnswer);
         }
         output.push(
             `<div class="question"> ${currentQuestion.question} </div>
@@ -27,6 +55,7 @@ function buildQuiz(){
 }
 
 function showResults(){
+    isSubmit = true;
     const answerArea = quizArea.querySelectorAll('.answers');
     let userCorrectAnswers = 0;
     allQuestions.forEach( (currentQuestion, questionNumber) =>{
@@ -49,16 +78,11 @@ function timer(){
             min+=1;
         }
         document.getElementById('timer').innerHTML = min.toString()+"min:"+sec.toString()+"sec";
-        if(sec ===10){
+        if(sec ===10 || isSubmit){
             clearInterval(fun);
             document.getElementById('timer').innerHTML = "Time Up";
             showResults();
         }
     },1000);
 }
-
-buildQuiz();
-
-startButton.addEventListener('click',timer);
-submitButton.addEventListener('click',showResults);
 
