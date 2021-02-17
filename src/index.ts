@@ -13,6 +13,8 @@ startButton.addEventListener('click',loadPage);
 
 
 function loadPage(){
+    const information = document.getElementById("info");
+    information.remove();
     removeStartButton();
     timer();
     buildQuiz();
@@ -45,7 +47,7 @@ function buildQuiz(){
               allAnswers.push(currentQuestion.correctAnswer);
         }
         output.push(
-            `<div class="question"> ${currentQuestion.question} </div>
+            `<div class="question">${questionNumber+1}.${currentQuestion.question} </div>
             <div class="answers"> ${answers.join('<br>')} </div><br>`
         );
     });
@@ -56,6 +58,7 @@ function buildQuiz(){
 
 function showResults(){
     isSubmit = true;
+    disableSubmitButton();  
     const answerArea = quizArea.querySelectorAll('.answers');
     let userCorrectAnswers = 0;
     allQuestions.forEach( (currentQuestion, questionNumber) =>{
@@ -66,7 +69,11 @@ function showResults(){
             userCorrectAnswers+=1;
         }
     });
-    resultArea.innerHTML = `${userCorrectAnswers} out of ${allQuestions.length}`;
+    resultArea.innerHTML = `${userCorrectAnswers} Out of ${allQuestions.length}`;
+}
+
+function disableSubmitButton(){
+    submitButton.setAttribute('class','btn btn-success disabled');
 }
 
 function timer(){
