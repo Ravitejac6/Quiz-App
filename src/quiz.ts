@@ -15,7 +15,7 @@ startButton.addEventListener('click',loadPage);
 
 
 function loadPage(){
-    const information = document.getElementById("info");
+    const information = document.getElementsByClassName("card")[0];
     information.remove();
     removeStartButton();
     timer();
@@ -69,15 +69,15 @@ function buildQuiz(questionIndex){
     const ansEle = document.createTextNode(`${answers.join('<br>')}`);
     document.getElementsByClassName('answers')[0].innerHTML = ansEle.data;
 
-    document.getElementsByClassName('answers')[0].addEventListener('click',see);
+    document.getElementsByClassName('answers')[0].addEventListener('click',verifyAnswer);
 
 }
 
 
 
-function see(){
+function verifyAnswer(){
     let arr:String[] = ['a','b','c','d'];
-    for(let i=0;i<3;i++){
+    for(let i=0;i<4;i++){
         const ele = document.getElementsByClassName("ques")[i] as HTMLInputElement;
         //console.log(ele.checked);
         if(ele.checked){
@@ -94,6 +94,7 @@ function see(){
 function showResults(){
     isSubmit = true;
     disableSubmitButton();
+    resultArea.setAttribute('class','card');
     resultArea.innerHTML = `${score} Out of ${allQuestions.length}`;
 }
 
@@ -110,7 +111,7 @@ function timer(){
             min+=1;
         }
         document.getElementById('timer').innerHTML = min.toString()+"min:"+sec.toString()+"sec";
-        if(sec ===60 || isSubmit){
+        if(min ===2 || isSubmit){
             clearInterval(fun);
             document.getElementById('timer').innerHTML = "Time Up";
             showResults();
