@@ -60,3 +60,10 @@
   margin-left: 10%;
   margin-right: 10%;
 }
+
+body {
+  background-image: url("https://t3.ftcdn.net/jpg/02/64/45/14/240_F_264451404_s4Dhf0mQZdg1N4Gx9RrwfnIIjBiZQ459.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
